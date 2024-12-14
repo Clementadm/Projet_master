@@ -1,0 +1,30 @@
+regarder etat des options pour comparer prix actuel et nombre d'option en ventes et achat
+
+recuperer historique des données de la veille (par heure)
+le moyenner en un jour, 
+regarder le nombre de baisse et le nombre de hausse 
+le delta entre le prix a l'ouverture et le prix à la fin de journee
+
+prendre les news des 3 dernieres jours / semaines su une societe
+prendre news sur le pays en question 
+
+peut regarder si presence de mots dans un article pour donner un poids plus important a certains articles ques d'autres 
+ou donnes un poids plus pour positif, negatif ou neutre 
+
+prendre toutes les news societe en rag et envoyees a llm pour question estce que positif ou negatif ou le faire pour chaque articles 
+faire pareil pour news pays
+
+se faire un dataset avec 
+- la societe,
+- le prix de l'action, 
+- estec que ca a baisse ou augmenter par rappotr à hier
+- le nombre doptiona  la hausse et a la baisse
+- le prix median de l'option 
+- le prix max optionle prix minimum
+- estec que news positif, negatif ou neutre 
+
+avec ce dataset tout les jours rajouter a la main si action a augmenter ou baisser 
+
+apres une semaine 
+faire prediction si a augmenter ou pas 
+
