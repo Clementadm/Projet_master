@@ -2,6 +2,6 @@ prendre fichier dans src get company news
 transformer en focntion 
 gerer les fait de TESTLA et TSLA 
 generer un csv pour news pays + news monde 
-genrer un fichier options 
+generer un fichier options 
 calcul des options 
 calcul historique  
