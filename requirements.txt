@@ -7,6 +7,7 @@ comm==0.2.2
 debugpy==1.8.8
 decorator==5.1.1
 executing==2.1.0
+finnhub-python==2.4.22
 frozendict==2.4.6
 html5lib==1.1
 idna==3.10

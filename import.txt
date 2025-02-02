@@ -1,0 +1,7 @@
+import pathlib
+pathlib.Path().resolve()
+
+import sys
+import os
+add_path = "C:/Users/aaa/a/a/a/aa/aa/NEW/Projet_master/SRC/API"
+sys.path.append(os.path.abspath(add_path))
