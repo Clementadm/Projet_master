@@ -193,7 +193,7 @@ def get_business_grades(business_name):
     return grade
 
 
-# get_business_grades("AAPL")
+#get_business_grades("AAPL")
 
 
 # %% [markdown]
@@ -217,10 +217,12 @@ def get_options(business_name):
     call → Une option CALL donne à l'acheteur le droit (mais pas l'obligation) d'ACHETER l'actif sous-jacent à un prix prédéfini avant ou à la date d'expiration
     put → Une option PUT donne à l'acheteur le droit (mais pas l'obligation) de VENDRE l'actif sous-jacent à un prix prédéfini avant ou à la date d'expiration
     """
+    print("test")
     business = yf.Ticker(business_name)
 
     # Récupérer les dates d'expiration disponibles
     expiration_dates = business.options
+    print(f"Expirations Dates of the options {expiration_dates}")
 
     # liste pour stocker les données d'options
     options_data = []
@@ -247,3 +249,5 @@ def get_options(business_name):
 
 
 # get_options("AAPL")
+
+# %%
