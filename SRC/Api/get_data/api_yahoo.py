@@ -95,7 +95,19 @@ def get_historical_data(business_name: str, period_choose: str) -> None:
     ]
     return trade_hist
 
-
+# "1d"	1 jour
+# "5d"	5 jours
+# "7d"	7 jours
+# "10d"	10 jours
+# "1mo"	1 mois
+# "3mo"	3 mois
+# "6mo"	6 mois
+# "1y"	1 an
+# "2y"	2 ans
+# "5y"	5 ans
+# "10y"	10 ans
+# "ytd"	Depuis le début de l’année
+# "max"	Depuis les données disponibles
 # get_historical_data("AAPL", "3mo")
 
 
