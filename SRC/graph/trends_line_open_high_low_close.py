@@ -28,7 +28,8 @@ def compute_slope_betwween_2_points(
     # print(f"Calcul ==> ({y2} - {y1}) / ({x2} - {x1})")
     return slope
 
-def get_trends_events(
+
+def get_trends_events_graph(
     df: pd.DataFrame,
     cols: list[str],
     degre: int,
