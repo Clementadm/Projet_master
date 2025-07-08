@@ -67,7 +67,8 @@ def get_general_news_country():
     print(
         f"News sur {news.loc[0, "datetime"] - news.loc[len(news)-1, "datetime"]} jours "
     )
-    news = news[['year', 'month', 'day', 'headline', 'source', 'summary', 'url']]
+    news = news[['datetime', 'year', 'month', 'day', 'headline', 'source', 'summary', 'url']]
+    news.rename(columns={"datetime": "publishedAt"}, inplace=True)
     return news
 
 

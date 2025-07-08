@@ -2,6 +2,7 @@
 from datetime import datetime, timedelta
 from API.get_data.api_finnhub import get_company_news
 from API.get_data.api_apinews_org import get_news
+from utils.llm_call import create_prompt_company_news, get_news_sentiment
 import pandas as pd
 
 
@@ -114,7 +115,9 @@ def create_news_dataset(business_name, business_ticker):
     #     + datetime.now().strftime("%Y_%m_%d__%H_%M")
     #     + "__news_from_finhubb_and_apinewsorg.csv"
     # )
-    print("News processing done and save")
+    company_news["prompt"] = company_news.apply(create_prompt_company_news, axis=1)
+    company_news["sentiment"] = company_news["prompt"].apply(get_news_sentiment)
+    print("Company news processing done")
     # return company_news
     return company_news.to_json()
 
