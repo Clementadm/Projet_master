@@ -117,19 +117,32 @@ def create_options_dataset(business_ticker):
     buy_mean_volume = calls["volume"].mean()
     sell_mean_volume = puts["volume"].mean()
 
-    return pd.DataFrame({
-        "cluster_buy":[cluster_buy],
-        "cluster_sell":[cluster_sell],
-        "nb_option_buy":[nb_option_buy],
-        "nb_option_sell":[nb_option_sell],
-        "buy_mean_volume":[buy_mean_volume],
-        "sell_mean_volume":[sell_mean_volume],
+    # return pd.DataFrame({
+    #     "cluster_buy":[cluster_buy],
+    #     "cluster_sell":[cluster_sell],
+    #     "nb_option_buy":[nb_option_buy],
+    #     "nb_option_sell":[nb_option_sell],
+    #     "buy_mean_volume":[buy_mean_volume],
+    #     "sell_mean_volume":[sell_mean_volume],
+    #     'current_price': analyst_price_targets["current"],
+    #     'low_analyst_price_targets': analyst_price_targets["low"],
+    #     'high_analyst_price_targets': analyst_price_targets["high"],
+    #     'mean_analyst_price_targets': analyst_price_targets["mean"],
+    #     'median_analyst_price_targets': analyst_price_targets["median"]
+    # })   
+    return {
+        "cluster_buy": [cluster_buy],
+        "cluster_sell": [cluster_sell],
+        "nb_option_buy": [nb_option_buy],
+        "nb_option_sell": [nb_option_sell],
+        "buy_mean_volume": [buy_mean_volume],
+        "sell_mean_volume": [sell_mean_volume],
         'current_price': analyst_price_targets["current"],
         'low_analyst_price_targets': analyst_price_targets["low"],
         'high_analyst_price_targets': analyst_price_targets["high"],
         'mean_analyst_price_targets': analyst_price_targets["mean"],
         'median_analyst_price_targets': analyst_price_targets["median"]
-    })   
+    }  
 
 
 # %%

@@ -1,6 +1,7 @@
 /EnvBourseproject
 /EnvProjetBourseNew
 API_KEYS.json
+/Data
 
 # Ignorer les fichiers compilés Python
 __pycache__/

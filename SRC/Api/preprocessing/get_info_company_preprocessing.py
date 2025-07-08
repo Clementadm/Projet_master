@@ -85,7 +85,8 @@ def get_info_company_preprocessing(business_ticker):
     df_return["mean_strongBuy"] = trend_recommendation_summarized["mean_strongBuy"]
     df_return["mean_strongSell"] = trend_recommendation_summarized["mean_strongSell"]
     df_return["insider_sentiment"] = calcul_tendance_insider(business_ticker) #1 = sentiment improving / -1 = sentiment deteriorating 
-    return df_return 
+    # return df_return 
+    return df_return.to_json()
 
 # %%
 # u = get_info_company_preprocessing("TSLA")

@@ -94,7 +94,7 @@ def apinewsorg_data(business_name):
 
 # %%
 def create_news_dataset(business_name, business_ticker):
-    """ "
+    """
     Call the two functions that collect the news from the API
     News processing to ensure consistency and similarity
     News are sorted in order of publication from most recent to oldest
@@ -109,13 +109,14 @@ def create_news_dataset(business_name, business_ticker):
     company_news = pd.concat([api_news_org, finnhub_news])
     company_news.sort_values("publishedAt", ascending=False, inplace=True)
     company_news.reset_index(inplace=True)
-    company_news.to_csv(
-        "../Data/Output/News/Company/"
-        + datetime.now().strftime("%Y_%m_%d__%H_%M")
-        + "__news_from_finhubb_and_apinewsorg.csv"
-    )
+    # company_news.to_csv(
+    #     "../Data/Output/News/Company/"
+    #     + datetime.now().strftime("%Y_%m_%d__%H_%M")
+    #     + "__news_from_finhubb_and_apinewsorg.csv"
+    # )
     print("News processing done and save")
-    return company_news
+    # return company_news
+    return company_news.to_json()
 
 
 # create_news_dataset(business_name="Tesla", business_ticker="TSLA")
