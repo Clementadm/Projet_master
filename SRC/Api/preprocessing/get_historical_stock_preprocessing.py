@@ -71,6 +71,12 @@ def breakdown_of_analyst_recommendation(business_ticker):
     last_recommendation_by_firm = business_grades_tab.drop_duplicates(
         subset="Firm", keep="first"
     )
+    # drop line without dates
+    last_recommendation_by_firm = last_recommendation_by_firm.dropna(subset=["GradeDate"])
+    
+    # drop lines without grades
+    last_recommendation_by_firm = last_recommendation_by_firm.dropna(subset=["ToGrade"])
+
     lst_recomd_one_y_rolling = last_recommendation_by_firm[
         last_recommendation_by_firm["GradeDate"] > one_year_rolling_midnight
     ]
@@ -82,11 +88,19 @@ def breakdown_of_analyst_recommendation(business_ticker):
     lst_recomd_one_y_rolling.loc[:, "ToGrade"] = lst_recomd_one_y_rolling[
         "ToGrade"
     ].replace(replace_map)
-    lst_recomd_one_y_rolling.loc[:, "ToGrade"] = (
-        pd.to_numeric(lst_recomd_one_y_rolling["ToGrade"], errors="coerce")
-        .fillna(pd.NA)
-        .astype(int)
+
+    # lst_recomd_one_y_rolling.loc[:, "ToGrade"] = (
+    #     pd.to_numeric(lst_recomd_one_y_rolling["ToGrade"], errors="coerce")
+    #     # .fillna(pd.NA)
+    #     .astype(int)
+    # )
+    # Conversion en numérique + drop des valeurs non convertibles
+    to_grade_numeric = pd.to_numeric(
+        lst_recomd_one_y_rolling["ToGrade"], errors="coerce"
     )
+    lst_recomd_one_y_rolling = lst_recomd_one_y_rolling.loc[to_grade_numeric.notna()]
+    lst_recomd_one_y_rolling.loc[:, "ToGrade"] = to_grade_numeric.dropna().astype(int)
+    #
 
     # Moyenne pondérée des ToGrade pour refléter le consensus global
     sentiment_moyen = lst_recomd_one_y_rolling["ToGrade"].mean()
@@ -98,6 +112,7 @@ def breakdown_of_analyst_recommendation(business_ticker):
 
     return {
         "distribution_of_recommendations": {
+            "mean_sentiment": format(sentiment_moyen, ".2f"),
             "positif": format(positifs, ".2f"),
             "negatifs": format(negatifs, ".2f"),
         },
