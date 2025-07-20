@@ -182,7 +182,7 @@ def historical_stock_info(business_ticker):
     return_df["five_year_rolling_volume"] = all_volume[4]
 
     # Analyst recommendation
-    df_business_recommendation = get_business_recommendation("MSFT")
+    df_business_recommendation = get_business_recommendation(business_ticker)
     rating_of_month = df_business_recommendation[
         ["strongBuy", "buy", "hold", "sell", "strongSell"]
     ].loc[0]
@@ -194,6 +194,7 @@ def historical_stock_info(business_ticker):
     analyst_info = breakdown_of_analyst_recommendation(business_ticker)
 
     return {
+        "5y_historic": df.to_json(),
         "today_analyse_price": return_df.to_json(),
         # "today_analyse_price": return_df.to_json(),
         "breakdown_of_analyst_recommendation": analyst_info,
