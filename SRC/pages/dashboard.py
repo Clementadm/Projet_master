@@ -1,9 +1,14 @@
 import streamlit as st
-from graph.analyse_price_of_the_day import price_and_volume_kpi
+from ihm.graph.analyse_price_of_the_day import price_and_volume_kpi
 import pandas as pd
 from io import StringIO
 from ihm.utils.read_json_file import read_json_file
-from datetime import datetime
+
+# from datetime import datetime
+from ihm.graph.historical_stock_data import (
+    historic_stock_candle_stick_chart,
+    get_trends_events_graph,
+)
 from ihm.utils.get_data_from_choosen_company import get_data_of_choosen_company
 
 st.set_page_config(
@@ -115,6 +120,31 @@ if choosen_company is not None:
             "<h3 style='text-align: center; color: #FFD700;'>Historic stock</h3>",
             unsafe_allow_html=True,
         )
+        five_year_historic_stock_data = pd.read_json(
+            StringIO(json_data["historical_stock_info"]["5y_historic"])
+        )
+
+        # first graph
+        candle_data = historic_stock_candle_stick_chart(
+            df=five_year_historic_stock_data, height=250, width=600
+        )
+        st.plotly_chart(candle_data, use_container_width=False, key="candle_data")
+
+        # second graph
+        trend_graph = get_trends_events_graph(
+            df=five_year_historic_stock_data,
+            cols=["Open", "High", "Low", "Close"],
+            degre=3,
+            show_curve=True,
+            colors={
+                "Open": "cornflowerblue",
+                "High": "forestgreen",
+                "Low": "firebrick",
+                "Close": "dimgrey",
+            },
+            height=400, width=600
+        )
+        st.plotly_chart(trend_graph, use_container_width=False, key="trend_graph")
 
     with col[2]:
         st.markdown(
