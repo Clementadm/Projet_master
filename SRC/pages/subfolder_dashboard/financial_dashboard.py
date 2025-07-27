@@ -2,47 +2,26 @@ import streamlit as st
 from ihm.graph.analyse_price_of_the_day import price_and_volume_kpi
 import pandas as pd
 from io import StringIO
-from ihm.set_page_config import page_config
-from ihm.utils.read_json_file import read_json_file
 from ihm.graph.options import (
     graph_comparate_actual_price_with_option_price,
     bar_chart_options,
 )
 
-from ihm.graph.analyst_recommendation import analyst_price_recommendation, breakdown_of_sentiment_analyst
+from ihm.graph.analyst_recommendation import (
+    analyst_price_recommendation,
+    breakdown_of_sentiment_analyst,
+)
 
 # from datetime import datetime
 from ihm.graph.historical_stock_data import (
     historic_stock_candle_stick_chart,
     get_trends_events_graph,
 )
-from ihm.utils.get_data_from_choosen_company import get_data_of_choosen_company
 
-page_config(initial_sidebar_state="collapsed")
 
-streamlit_background_color = "#0e1117"
-company_dict = {
-    "Microsoft": "msft",
-    "Pfizer": "pfe",
-    "Abercrombie & Fitch": "anf",
-    "Starbucks": "sbux",
-    "Tesla": "tsla",
-    "Walmart": "wmt",
-}
-
-only_company_name = list(company_dict.keys())
-choosen_company = st.selectbox("Choose an company to analyse", only_company_name)
-
-if choosen_company is not None:
-    print(f"Choosen_company: {choosen_company}")
-
-    # get the data from lastest json file of the company select
-    latest_file = get_data_of_choosen_company(company_dict, choosen_company)
-    json_data = read_json_file(file_name=latest_file)
-    today_analyse_price_data = pd.read_json(
-        StringIO(json_data["historical_stock_info"]["today_analyse_price"])
-    )
-
+def financial_dashboard(
+    json_data, today_analyse_price_data, streamlit_background_color
+):
     col = st.columns((2.5, 4, 2.5), gap="medium")  # , vertical_alignment="center")
     # _______________________________________________________________________
     with col[0]:
@@ -53,12 +32,19 @@ if choosen_company is not None:
         )
         # graph title
         st.markdown(
-            "<h5 style='color: #04d995;'>Analyst sentiment distribution</h5>", unsafe_allow_html=True
+            "<h5 style='color: #04d995;'>Analyst sentiment distribution</h5>",
+            unsafe_allow_html=True,
         )
         sentiment_of_the_analyst = breakdown_of_sentiment_analyst(
-            json_data["historical_stock_info"]["breakdown_of_analyst_recommendation"]["distribution_of_recommendations"]
+            json_data["historical_stock_info"]["breakdown_of_analyst_recommendation"][
+                "distribution_of_recommendations"
+            ]
         )
-        st.plotly_chart(sentiment_of_the_analyst, use_container_width=False, key="sentiment_of_the_analyst")
+        st.plotly_chart(
+            sentiment_of_the_analyst,
+            use_container_width=False,
+            key="sentiment_of_the_analyst",
+        )
 
         # title of the section
         st.markdown(
@@ -181,19 +167,19 @@ if choosen_company is not None:
 
         # graph title
         st.markdown(
-            "<h5 style='color: #8338ec;'>Actual price VS Analyst price</h5>", unsafe_allow_html=True
+            "<h5 style='color: #8338ec;'>Actual price VS Analyst price</h5>",
+            unsafe_allow_html=True,
         )
         # Options price recommendation
         option_price = analyst_price_recommendation(
-            json_data["options"],
-            background_color=streamlit_background_color
+            json_data["options"], background_color=streamlit_background_color
         )
         st.plotly_chart(
             option_price,
             use_container_width=False,
             key="option_price",
         )
-
+        st.write("---")
         # indicator
         options_price_comparative = graph_comparate_actual_price_with_option_price(
             cluster_buy=json_data["options"]["cluster_buy"][0],
@@ -209,7 +195,8 @@ if choosen_company is not None:
         # graph en bar
         # graph title
         st.markdown(
-            "<h5 style='color: #8338ec;'>Buy/Sell options Comparison</h5>", unsafe_allow_html=True
+            "<h5 style='color: #8338ec;'>Buy/Sell options Comparison</h5>",
+            unsafe_allow_html=True,
         )
         bar_options = bar_chart_options(
             background_color=streamlit_background_color,
@@ -218,7 +205,6 @@ if choosen_company is not None:
             left_bar_y_sell=json_data["options"]["sell_mean_volume"],
             left_title="Mean options volume",
             left_yaxis_title="Volume",
-
             # right
             right_bar_y_buy=json_data["options"]["nb_option_buy"],
             right_bar_y_sell=json_data["options"]["nb_option_sell"],
