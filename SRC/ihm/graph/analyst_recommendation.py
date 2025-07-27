@@ -2,12 +2,16 @@ from typing import Dict, Any
 import plotly.graph_objects as go
 
 
-def analyst_price_recommendation(options_data: Dict[str, Any]) -> go.Figure:
+def analyst_price_recommendation(
+    options_data: Dict[str, Any],
+    background_color: str,
+    width: int = 500,
+    height: int = 150,
+) -> go.Figure:
     fig = go.Figure(
         go.Indicator(
             mode="gauge+number",
             value=options_data["current_price"],
-            title={"text": "Prix actuel vs Cibles analystes"},
             gauge={
                 "axis": {
                     "range": [
@@ -87,17 +91,20 @@ def analyst_price_recommendation(options_data: Dict[str, Any]) -> go.Figure:
     )
 
     fig.update_layout(
-        width=450,
-        height=300,
-        # No background color
-        paper_bgcolor="rgba(0,0,0,0)",
-        plot_bgcolor="rgba(0,0,0,0)",
+        width=width,
+        height=height,
+        paper_bgcolor=background_color,
         xaxis=dict(visible=False),
         yaxis=dict(visible=False),
         legend=dict(
-            orientation="h", yanchor="bottom", y=-0.45, xanchor="center", x=0.5
+            orientation="v",  # vertical
+            yanchor="top",
+            y=0.7,
+            xanchor="left",
+            x=1.1,  # shift legend to the left
+            bgcolor="rgba(0,0,0,0)",  # no legend background
         ),
-        margin=dict(t=40, b=10),
+        margin=dict(t=0, b=0, l=5, r=0),
     )
 
     return fig
@@ -106,12 +113,16 @@ def analyst_price_recommendation(options_data: Dict[str, Any]) -> go.Figure:
 # analyst_price_recommendation(output_data["options"])
 
 
-def breakdown_of_sentiment_analyst(sentiment_analyst: dict[str, float]) -> go.Figure:
+def breakdown_of_sentiment_analyst(
+    sentiment_analyst: dict[str, float], height=100, width=400
+) -> go.Figure:
     """
     Generates a donut chart showing the distribution of positive and negative analyst sentiments.
 
     Args:
         - sentiment_analyst : Dictionary containing sentiment values with keys 'positif' and 'negatifs' (values between 0 and 1 or as percentages).
+        - width: with of the return figure
+        - height: height of the return figure
 
     Returns:
         fig: A Plotly donut chart visualizing positive vs. negative analyst sentiment.
@@ -137,11 +148,11 @@ def breakdown_of_sentiment_analyst(sentiment_analyst: dict[str, float]) -> go.Fi
     )
 
     fig.update_layout(
-        title="Analyst sentiment distribution",
         paper_bgcolor="rgba(0,0,0,0)",
         showlegend=True,
-        height=300,
-        width=300,
+        height=height,
+        width=width,
+        margin=dict(t=0, b=0, l=5, r=0),
     )
 
     return fig

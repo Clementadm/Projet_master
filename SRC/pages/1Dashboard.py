@@ -2,7 +2,14 @@ import streamlit as st
 from ihm.graph.analyse_price_of_the_day import price_and_volume_kpi
 import pandas as pd
 from io import StringIO
+from ihm.set_page_config import page_config
 from ihm.utils.read_json_file import read_json_file
+from ihm.graph.options import (
+    graph_comparate_actual_price_with_option_price,
+    bar_chart_options,
+)
+
+from ihm.graph.analyst_recommendation import analyst_price_recommendation, breakdown_of_sentiment_analyst
 
 # from datetime import datetime
 from ihm.graph.historical_stock_data import (
@@ -11,12 +18,7 @@ from ihm.graph.historical_stock_data import (
 )
 from ihm.utils.get_data_from_choosen_company import get_data_of_choosen_company
 
-st.set_page_config(
-    page_title="Projet IA Bourse",
-    layout="wide",
-    page_icon="📊",
-    initial_sidebar_state="expanded",
-)
+page_config(initial_sidebar_state="collapsed")
 
 streamlit_background_color = "#0e1117"
 company_dict = {
@@ -41,11 +43,26 @@ if choosen_company is not None:
         StringIO(json_data["historical_stock_info"]["today_analyse_price"])
     )
 
-    col = st.columns((2, 4.5, 2), gap="medium")  # , vertical_alignment="center")
+    col = st.columns((2.5, 4, 2.5), gap="medium")  # , vertical_alignment="center")
+    # _______________________________________________________________________
     with col[0]:
         # title of the section
         st.markdown(
-            "<h3 style='text-align: center; color: #00BFFF;'>Volume and Price analyse</h3>",
+            "<h3 style='text-align: center; color: #04d995;text-decoration: underline'>Analyst recommendation</h3>",
+            unsafe_allow_html=True,
+        )
+        # graph title
+        st.markdown(
+            "<h5 style='color: #04d995;'>Analyst sentiment distribution</h5>", unsafe_allow_html=True
+        )
+        sentiment_of_the_analyst = breakdown_of_sentiment_analyst(
+            json_data["historical_stock_info"]["breakdown_of_analyst_recommendation"]["distribution_of_recommendations"]
+        )
+        st.plotly_chart(sentiment_of_the_analyst, use_container_width=False, key="sentiment_of_the_analyst")
+
+        # title of the section
+        st.markdown(
+            "<h3 style='text-align: center; color: #00BFFF;text-decoration: underline'>Volume and Price analyse</h3>",
             unsafe_allow_html=True,
         )
 
@@ -115,11 +132,17 @@ if choosen_company is not None:
             five_year_rolling, use_container_width=False, key="five_year_rolling"
         )
 
+    # _______________________________________________________________________
     with col[1]:
         st.markdown(
-            "<h3 style='text-align: center; color: #FFD700;'>Historic stock</h3>",
+            "<h3 style='text-align: center; color: #FFD700;text-decoration: underline'>Historic stock</h3>",
             unsafe_allow_html=True,
         )
+        # _________________
+        # tendance sur 6 mois plus que 5 ans plus approprié
+        # _________________
+        # ou dérivé seconde ==> permetta de savpir quand commence a ne plus augmenter aussi vite qu'avant
+        #
         five_year_historic_stock_data = pd.read_json(
             StringIO(json_data["historical_stock_info"]["5y_historic"])
         )
@@ -142,20 +165,73 @@ if choosen_company is not None:
                 "Low": "firebrick",
                 "Close": "dimgrey",
             },
-            height=400, width=600
+            height=400,
+            width=600,
         )
         st.plotly_chart(trend_graph, use_container_width=False, key="trend_graph")
 
+    # _______________________________________________________________________
     with col[2]:
+        # OPTIONS
+        # _______________________________________________________________________
         st.markdown(
-            "<h3 style='text-align: center; color: #8338ec;'>Recommendation analyst</h3>",
+            "<h3 style='text-align: center; color: #8338ec;text-decoration: underline'>Info about option</h3>",
             unsafe_allow_html=True,
         )
+
+        # graph title
         st.markdown(
-            "<h3 style='text-align: center; color: #8338ec;'>Info about option</h3>",
-            unsafe_allow_html=True,
+            "<h5 style='color: #8338ec;'>Actual price VS Analyst price</h5>", unsafe_allow_html=True
         )
+        # Options price recommendation
+        option_price = analyst_price_recommendation(
+            json_data["options"],
+            background_color=streamlit_background_color
+        )
+        st.plotly_chart(
+            option_price,
+            use_container_width=False,
+            key="option_price",
+        )
+
+        # indicator
+        options_price_comparative = graph_comparate_actual_price_with_option_price(
+            cluster_buy=json_data["options"]["cluster_buy"][0],
+            cluster_sell=json_data["options"]["cluster_sell"][0],
+            background_color=streamlit_background_color,
+        )
+        st.plotly_chart(
+            options_price_comparative,
+            use_container_width=False,
+            key="options_price_comparative",
+        )
+
+        # graph en bar
+        # graph title
         st.markdown(
-            "<h3 style='text-align: center; color: #8338ec;'>Prediction</h3>",
+            "<h5 style='color: #8338ec;'>Buy/Sell options Comparison</h5>", unsafe_allow_html=True
+        )
+        bar_options = bar_chart_options(
+            background_color=streamlit_background_color,
+            # left
+            left_bar_y_buy=json_data["options"]["buy_mean_volume"],
+            left_bar_y_sell=json_data["options"]["sell_mean_volume"],
+            left_title="Mean options volume",
+            left_yaxis_title="Volume",
+
+            # right
+            right_bar_y_buy=json_data["options"]["nb_option_buy"],
+            right_bar_y_sell=json_data["options"]["nb_option_sell"],
+            right_title="Number of different options",
+            right_yaxis_title="Number of options",
+        )
+        st.plotly_chart(
+            bar_options,
+            use_container_width=False,
+            key="bar_options",
+        )
+
+        st.markdown(
+            "<h3 style='text-align: center; color: #8338ec;text-decoration: underline'>Prediction</h3>",
             unsafe_allow_html=True,
         )

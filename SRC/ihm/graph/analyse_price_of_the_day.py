@@ -38,7 +38,7 @@ def make_indicator(
 
 
 def price_and_volume_kpi(
-    df: pd.DataFrame, col_price: str, col_volume: str, background_color: str, width:int=450, height:int=100
+    df: pd.DataFrame, col_price: str, col_volume: str, background_color: str, width:int=450, height:int=50
 ) -> go.Figure:
     """
     Display two KPI indicators using Plotly: one for the price trend and one for the volume trend.

@@ -1,11 +1,11 @@
 from typing import List
 import plotly.graph_objects as go
-from graph.analyse_price_of_the_day import make_indicator
+from ihm.graph.analyse_price_of_the_day import make_indicator
 from plotly.subplots import make_subplots
 
 
 def bar_chart_options(
-    graph_title: str,
+    background_color: str,
     left_bar_y_buy: List[float],
     left_bar_y_sell: List[float],
     left_title: str,
@@ -14,12 +14,14 @@ def bar_chart_options(
     right_bar_y_sell: List[float],
     right_title: str,
     right_yaxis_title: str,
+    width: int = 500,
+    height: int = 150,
 ) -> go.Figure:
     """
         Creates a dual bar chart with two subplots showing buy/sell volumes and counts.
 
     Args:
-        graph_title (str): Title of the entire graph.
+        background_color: Background color of the chart
         left_bar_y_buy (List[float]): Y-values for 'Buy' bar in the left subplot.
         left_bar_y_sell (List[float]): Y-values for 'Sell' bar in the left subplot.
         left_title (str): Title of the left subplot.
@@ -28,6 +30,8 @@ def bar_chart_options(
         right_bar_y_sell (List[float]): Y-values for 'Sell' bar in the right subplot.
         right_title (str): Title of the right subplot.
         right_yaxis_title (str): Y-axis label for the right subplot.
+        width: with of the return figure
+        height: height of the return figure
 
     Returns:
         Figure: Plotly Figure with two bar charts.
@@ -37,7 +41,7 @@ def bar_chart_options(
         rows=1,
         cols=2,
         subplot_titles=(left_title, right_title),
-        horizontal_spacing=0.15,
+        horizontal_spacing=0.30,
     )
 
     # Left chart ==> Volume option
@@ -89,24 +93,19 @@ def bar_chart_options(
     )
 
     fig.update_layout(
-        title_text=graph_title,
-        width=700,
-        height=300,
-        margin=dict(l=40, r=40, b=40, t=60),
+        width=width,
+        height=height,
         showlegend=False,
-        # width=500,
-        # height=250,
-        # margin=dict(
-        #     l=40,
-        #     r=25,
-        #     b=25,
-        # #     t=100,
-        # #     pad=4
-        # ),
-        paper_bgcolor="rgba(0,0,0,0)",
-        plot_bgcolor="rgba(0,0,0,0)",  # No background color
-        yaxis=dict(title=left_yaxis_title),
-        yaxis2=dict(title=right_yaxis_title, anchor="x2"),
+        margin=dict(
+            l=40,  # 15,
+            r=40,  # 15,
+            b=1,  # 1,
+            t=0,  # 48,
+        ),
+        paper_bgcolor=background_color,
+        grid={"rows": 1, "columns": 2, "pattern": "independent"},
+        yaxis=dict(title=left_yaxis_title, title_standoff=5),
+        yaxis2=dict(title=right_yaxis_title, title_standoff=5),
     )
     return fig
 
@@ -126,7 +125,11 @@ def bar_chart_options(
 
 
 def graph_comparate_actual_price_with_option_price(
-    cluster_buy: str, cluster_sell: str, background_color: str
+    cluster_buy: str,
+    cluster_sell: str,
+    background_color: str,
+    width: int = 450,
+    height: int = 50,
 ) -> go.Figure:
     """
     Generates a dual-indicator Plotly chart comparing buy and sell option price clusters.
@@ -136,6 +139,8 @@ def graph_comparate_actual_price_with_option_price(
         cluster_buy: Valuation label for the buy option price
         cluster_sell: Valuation label for the sell option price
         background_color: Background color of the chart
+        width: with of the return figure
+        height: height of the return figure
 
     Returns:
         go.Figure: A Plotly figure object containing two side-by-side indicators.
@@ -173,19 +178,18 @@ def graph_comparate_actual_price_with_option_price(
     )
 
     fig.update_layout(
-        width=500,
-        height=100,
+        width=width,
+        height=height,
         margin=dict(
-            l=25,
-            r=25,
-            b=25,
-            #     t=100,
-            #     pad=4
+            l=15,
+            r=15,
+            b=1,
+            t=48,
         ),
         paper_bgcolor=background_color,
         grid={"rows": 1, "columns": 2, "pattern": "independent"},
     )
-    # fig.show()
+
     return fig
 
 
