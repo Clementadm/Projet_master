@@ -4,6 +4,8 @@ from PIL import Image
 
 def page_config(initial_sidebar_state="expanded"):
     im = Image.open("SRC/ihm/favicon/candlestick-chart.png")
+    logo = Image.open("SRC/ihm/favicon/logo.png")
+    st.logo(logo, icon_image=logo, size="large")
 
     st.set_page_config(
         page_title="TradeHelper", layout="wide", page_icon=im,

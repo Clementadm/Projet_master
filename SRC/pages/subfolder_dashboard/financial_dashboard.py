@@ -35,11 +35,19 @@ def financial_dashboard(
             "<h5 style='color: #04d995;'>Analyst sentiment distribution</h5>",
             unsafe_allow_html=True,
         )
+
         sentiment_of_the_analyst = breakdown_of_sentiment_analyst(
-            json_data["historical_stock_info"]["breakdown_of_analyst_recommendation"][
-                "distribution_of_recommendations"
-            ]
+            positive_sentiment=json_data["historical_stock_info"][
+                "breakdown_of_analyst_recommendation"
+            ]["distribution_of_recommendations"]["positif"],
+            negative_sentiment=json_data["historical_stock_info"][
+                "breakdown_of_analyst_recommendation"
+            ]["distribution_of_recommendations"]["negatifs"],
+            # json_data["historical_stock_info"]["breakdown_of_analyst_recommendation"][
+            #     "distribution_of_recommendations"
+            # ]
         )
+
         st.plotly_chart(
             sentiment_of_the_analyst,
             use_container_width=False,
@@ -124,6 +132,25 @@ def financial_dashboard(
             "<h3 style='text-align: center; color: #FFD700;text-decoration: underline'>Historic stock</h3>",
             unsafe_allow_html=True,
         )
+        col_last_price = st.columns((4, 4), gap="large")
+        with col_last_price[0]:
+            # open
+            last_open_price_know = today_analyse_price_data["Open"].values[0]
+            st.badge(f"Last open price: {last_open_price_know:.3f} $", icon=":material/check:", color="green", width="stretch")
+
+            # close
+            last_close_price_know = today_analyse_price_data["Close"].values[0]
+            st.badge(f"Last close price: {last_close_price_know:.3f} $", icon=":material/close:", color="red", width="stretch")
+
+        with col_last_price[1]:
+            # low
+            last_low_price_know = today_analyse_price_data["Low"].values[0]
+            st.badge(f"Last low price: {last_low_price_know:.3f} $", icon=":material/arrow_downward:", color="red", width="stretch")
+
+            # up
+            last_up_price_know = today_analyse_price_data["High"].values[0]
+            st.badge(f"Last low price: {last_up_price_know:.3f} $", icon=":material/arrow_upward:", color="green", width="stretch")
+
         # _________________
         # tendance sur 6 mois plus que 5 ans plus approprié
         # _________________

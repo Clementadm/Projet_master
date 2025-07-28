@@ -22,6 +22,8 @@ company_dict = {
 only_company_name = list(company_dict.keys())
 choosen_company = st.selectbox("Choose an company to analyse", only_company_name)
 
+# choosen_company_ticker = company_dict[choosen_company].upper()
+
 if choosen_company is not None:
     print(f"Choosen_company: {choosen_company}")
 
@@ -34,6 +36,7 @@ if choosen_company is not None:
     finance_tab, company_news_tab, country_news_tab = st.tabs(
         ["Financial Dashboard", "Company news", "Country News"]
     )
+    # current_price=today_analyse_price_data["Close"]
     with finance_tab:
         financial_dashboard(
             json_data=json_data,

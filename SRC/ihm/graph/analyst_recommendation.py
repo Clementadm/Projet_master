@@ -113,22 +113,69 @@ def analyst_price_recommendation(
 # analyst_price_recommendation(output_data["options"])
 
 
+# def breakdown_of_sentiment_analyst(
+#     sentiment_analyst: dict[str, float], height=100, width=400
+# ) -> go.Figure:
+#     """
+#     Generates a donut chart showing the distribution of positive and negative analyst sentiments.
+
+#     Args:
+#         - sentiment_analyst : Dictionary containing sentiment values with keys 'positif' and 'negatifs' (values between 0 and 1 or as percentages).
+#         - width: with of the return figure
+#         - height: height of the return figure
+
+#     Returns:
+#         fig: A Plotly donut chart visualizing positive vs. negative analyst sentiment.
+#     """
+#     positive_sentiment = round(float(sentiment_analyst["positif"]), 1)
+#     negative_sentiment = round(float(sentiment_analyst["negatifs"]), 1)
+
+#     labels = ["Positive", "Negative"]
+#     values = [positive_sentiment, negative_sentiment]
+#     colors = ["forestgreen", "firebrick"]
+
+#     fig = go.Figure(
+#         data=[
+#             go.Pie(
+#                 labels=labels,
+#                 values=values,
+#                 marker=dict(colors=colors),
+#                 textinfo="percent",
+#                 hole=0.65,  # 0 = full pie, 0.5 = donut
+#                 hoverinfo="label+percent",
+#             )
+#         ]
+#     )
+
+#     fig.update_layout(
+#         paper_bgcolor="rgba(0,0,0,0)",
+#         showlegend=True,
+#         height=height,
+#         width=width,
+#         margin=dict(t=0, b=0, l=5, r=0),
+#     )
+
+
+#     return fig
+
+
 def breakdown_of_sentiment_analyst(
-    sentiment_analyst: dict[str, float], height=100, width=400
+    positive_sentiment: int, negative_sentiment: int, height=100, width=400
 ) -> go.Figure:
     """
     Generates a donut chart showing the distribution of positive and negative analyst sentiments.
 
     Args:
-        - sentiment_analyst : Dictionary containing sentiment values with keys 'positif' and 'negatifs' (values between 0 and 1 or as percentages).
+        - positive_sentiment: number of positif values
+        - negative_sentiment: number of negatif values
         - width: with of the return figure
         - height: height of the return figure
 
     Returns:
         fig: A Plotly donut chart visualizing positive vs. negative analyst sentiment.
     """
-    positive_sentiment = round(float(sentiment_analyst["positif"]), 1)
-    negative_sentiment = round(float(sentiment_analyst["negatifs"]), 1)
+    positive_sentiment = round(float(positive_sentiment), 1)
+    negative_sentiment = round(float(negative_sentiment), 1)
 
     labels = ["Positive", "Negative"]
     values = [positive_sentiment, negative_sentiment]

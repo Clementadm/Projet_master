@@ -1,6 +1,5 @@
 import streamlit as st
-import pandas as pd
-import plotly.express as px
+from PIL import Image
 from ihm.set_page_config import page_config
 
 page_config()
@@ -15,8 +14,13 @@ Ce site vous permet de :
 Naviguez via le menu à gauche.
 """)
 
+logo = Image.open("SRC/ihm/favicon/logo.png")
 st.image(
-    "https://images.unsplash.com/photo-1480944657103-7fed22359e1d?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", 
-    caption="Analyse de données et visualisation")
+    logo,
+    caption="Logo"
+)
+# st.image(
+#     "https://images.unsplash.com/photo-1480944657103-7fed22359e1d?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", 
+#     caption="Analyse de données et visualisation")
 
 st.markdown("---")

@@ -143,7 +143,8 @@ def historical_stock_info(business_ticker):
     ]
 
     # analyse today price
-    return_df = df[["Date", "Close", "Volume"]].tail(1)
+    # return_df = df[["Date", "Close", "Volume"]].tail(1)
+    return_df = df[["Date", "Open", "Close", "Low", "High", "Volume"]].tail(1)
     all_trends = []
     all_volume = []
     # compute trend price and volume
