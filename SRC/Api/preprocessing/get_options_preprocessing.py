@@ -7,6 +7,7 @@ from API.get_data.api_yahoo import get_options
 import pandas as pd
 from API.get_data.api_yahoo import get_analyst_price_targets
 
+
 # %%
 # CLASSIFICATION_RANGES = [
 #     (-float("inf"), -25, "Very undervalued"), # Très sous-évalué

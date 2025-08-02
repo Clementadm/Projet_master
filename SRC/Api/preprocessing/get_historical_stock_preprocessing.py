@@ -12,7 +12,8 @@ from utils.trends_slope import check_trend_of_price
 from utils.trends import get_trends_events
 from utils.old_slope import qualify_slope
 from collections import Counter
-# pd.set_option('future.no_silent_downcasting', True)
+pd.set_option('future.no_silent_downcasting', True)
+pd.options.mode.copy_on_write = True
 
 
 # %%

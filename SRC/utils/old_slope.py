@@ -18,9 +18,11 @@ def compute_slope_betwween_2_points(
         float: The directing coefficient of the line.
     """
     if x1 == x2:
-        raise ValueError(
-            "The points have the same x coordinate. The line is vertical and its slope is indefinite."
+        # raise ValueError(
+        print(
+            "compute_slope_betwween_2_points : The points have the same x coordinate. The line is vertical and its slope is indefinite."
         )
+        return 0
 
     slope = (y2 - y1) / (x2 - x1)
     # print(f"Calcul ==> ({y2} - {y1}) / ({x2} - {x1})")

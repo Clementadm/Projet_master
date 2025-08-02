@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+pd.options.mode.copy_on_write = True
 
 
 def calculate_slope(series: pd.Series) -> float:
