@@ -13,6 +13,6 @@ def page_config(initial_sidebar_state="expanded"):
     st.sidebar.image(logo, width=300)
     # st.title("TradeHelper: Turning GOALS into GAINS")
 
-    st.markdown("<h1 style='text-align: center; color: #ff5e34;'>Welcome to TradeHelper</h1>", unsafe_allow_html=True)
+    st.markdown("<h1 style='text-align: center; color: #ff5e34;'>TradeHelper</h1>", unsafe_allow_html=True)
     st.markdown("<h4 style='text-align: center; color: #eddf98;'>Your AI-powered investment decision assistant</h4>", unsafe_allow_html=True)
     st.markdown("---")
