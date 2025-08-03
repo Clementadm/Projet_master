@@ -1,6 +1,6 @@
 import streamlit as st
 from ihm.set_page_config import page_config, footer
-page_config(initial_sidebar_state="collapsed")
+page_config(initial_sidebar_state="collapsed", layout="centered")
 st.markdown(
     """
     <div style='text-align: center;'>
@@ -16,9 +16,10 @@ st.markdown(
 )
 
 # Layout
-col1, col2, col3, col4 = st.columns([3, 0.25, 1, 0.25])
+# col1, col2, col3, col4 = st.columns([3, 0.25, 1, 0.25])
+col1, col2, col3 = st.columns([0.25, 3, 0.25])
 
-with col1:
+with col2:
     email = st.text_input("📧 Your Email *", value=st.session_state.get('email', ''), key='email')
     topic = st.selectbox("📌 Topic *", ["General Inquiry", "Feedback", "Integration Request", "Technical Issue"], key="topic")
     message = st.text_area("💬 Your Message *", height=200, value=st.session_state.get('message', ''), key='message')
