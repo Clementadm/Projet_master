@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 from io import StringIO
-from ihm.set_page_config import page_config
+from ihm.set_page_config import page_config, footer
 from ihm.utils.read_json_file import read_json_file
 from pages.subfolder_dashboard.financial_dashboard import financial_dashboard
 from pages.subfolder_dashboard.company_news_dashboard import company_news
@@ -49,3 +49,5 @@ if choosen_company is not None:
 
     with country_news_tab:
         company_news(json_data, "country_news")
+
+footer()

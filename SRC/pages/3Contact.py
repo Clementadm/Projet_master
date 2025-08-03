@@ -1,20 +1,5 @@
-# import streamlit as st
-
-# col1, col2, col3, col4 =  st.columns([3, 0.25, 1, 0.25])
-
-# with col1: # left side of the layout
-#     email = st.text_input("**Your email***", value=st.session_state.get('email', ''), key='email') # input widget for contact email
-#     message = st.text_area("**Your message***", value=st.session_state.get('message', ''), key='message') # input widget for message
-
-#     st.markdown('<p style="font-size: 13px;">*Required fields</p>', unsafe_allow_html=True) # indication to user that both fields must be filled
-#     if st.button("Send", type="primary"):
-#         if not email or not message:
-#             st.error("Please fill out all required fields.") # error for any blank field
-#         else:
-#             print("ok")
-
 import streamlit as st
-from ihm.set_page_config import page_config
+from ihm.set_page_config import page_config, footer
 page_config(initial_sidebar_state="collapsed")
 st.markdown(
     """
@@ -46,3 +31,5 @@ with col1:
         else:
             # 👇 Logique d'envoi ici (SMTP, SendGrid, stockage...)
             st.success("✅ Message sent successfully! Our team will reach out to you shortly.")
+
+footer()
