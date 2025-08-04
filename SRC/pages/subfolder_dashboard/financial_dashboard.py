@@ -188,7 +188,7 @@ def financial_dashboard(
         # OPTIONS
         # _______________________________________________________________________
         st.markdown(
-            "<h3 style='text-align: center; color: #8338ec;text-decoration: underline'>Info about option</h3>",
+            "<h3 style='text-align: center; color: #8338ec;text-decoration: underline'>Info about currently active options</h3>",
             unsafe_allow_html=True,
         )
 
@@ -222,7 +222,7 @@ def financial_dashboard(
         # graph en bar
         # graph title
         st.markdown(
-            "<h5 style='color: #8338ec;'>Buy/Sell options Comparison</h5>",
+            "<h5 style='color: #8338ec;'>Mean Buy/Sell options Comparison</h5>",
             unsafe_allow_html=True,
         )
         bar_options = bar_chart_options(
@@ -231,11 +231,11 @@ def financial_dashboard(
             left_bar_y_buy=json_data["options"]["buy_mean_volume"],
             left_bar_y_sell=json_data["options"]["sell_mean_volume"],
             left_title="Mean options volume",
-            left_yaxis_title="Volume",
+            left_yaxis_title="Mean  volume",
             # right
             right_bar_y_buy=json_data["options"]["nb_option_buy"],
             right_bar_y_sell=json_data["options"]["nb_option_sell"],
-            right_title="Number of different options",
+            right_title="Number  of  different  options",
             right_yaxis_title="Number of options",
         )
         st.plotly_chart(

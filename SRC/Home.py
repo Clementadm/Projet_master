@@ -18,6 +18,13 @@ st.html("""
         <p style='font-size: 16px; max-width: 800px; margin: auto;'>
             Our goal is to help you <strong>identify and evaluate investment opportunities</strong> in listed companies, simply and reliably.
         </p>
+        p style='font-size: 16px; max-width: 800px; margin: auto;'>
+            Here you’ll find:
+         </p>
+        <pre style='font-size: 16px; max-width: 800px; margin: auto;'>    • An interactive dashboard to visualize your data</pre>
+        <pre style='font-size: 16px; max-width: 800px; margin: auto;'>    • A section for news and sentiment related to your selected companies</pre>
+        <pre style='font-size: 16px; max-width: 800px; margin: auto;'>    • A tutorial to guide you through all the features</pre>
+        <pre style='font-size: 16px; max-width: 800px; margin: auto;'>    • A FAQ and Contact page if you need help or want to share feedback</pre>
     </div><br><br>
     
 """)

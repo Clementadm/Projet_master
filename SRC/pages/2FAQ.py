@@ -14,6 +14,20 @@ page_config(initial_sidebar_state="collapsed", layout="centered")
 # lecture et l'explicabilité des prédictions de notre algorithme,
 # l'intégration de toutes ces informations dans un processus de décision d'investissement personnel et réfléchi.
 
+
+st.html("""
+    <div style='center; font-family: Roboto, sans-serif; color: #f0f2f5;'>
+        <p style='font-size: 16px; max-width: 800px; margin: auto;'>
+            This FAQ (Frequently Asked Questions) section has been created to answer the most common questions you might have while using TradeHelper.
+            Whether you’re trying to understand how the platform works, where the data comes from, or how to interpret the predictions and visualizations, this page is here to provide clear and concise explanations.
+
+        </p><br>
+        <p style='font-size: 16px; max-width: 800px; margin: auto;'>
+            Still have questions? Use the <strong>Contact</strong> page to reach out directly to our team.
+        </p>
+    </div><br><br>
+""")
+
 # Understand the solution
 st.html("""
     <div style='text-align: center; font-family: Roboto, sans-serif;'>
@@ -129,6 +143,11 @@ with st.expander("What is the system's approach to user risk level or objectives
     st.write("""
         In the current version, the same predictions are shown to all users. 
         However, a future update may allow customisation according to risk tolerance or investment goals.
+    """)
+with st.expander("How do I report a bug or issue?"):
+    st.write("""
+        Please use the “Contact” page to report any problem or suggest improvements. 
+        The team will review your message and respond promptly if needed.
     """)
 
 footer()
