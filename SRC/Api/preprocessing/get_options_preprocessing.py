@@ -112,7 +112,7 @@ def create_options_dataset(business_ticker):
     nb_option_sell = puts.shape[0]
 
     # Get analyste price target and actual price 
-    analyst_price_targets = get_analyst_price_targets("TSLA")
+    analyst_price_targets = get_analyst_price_targets(business_ticker)
 
     # mean volume
     buy_mean_volume = calls["volume"].mean()

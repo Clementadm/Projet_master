@@ -8,6 +8,19 @@ def analyst_price_recommendation(
     width: int = 500,
     height: int = 150,
 ) -> go.Figure:
+    mean_analyst_price_targets = options_data["mean_analyst_price_targets"]
+    median_analyst_price_targets = options_data["median_analyst_price_targets"]
+
+    lowest_value_mean_median = 0
+    highess_value_mean_median = 0
+
+    if mean_analyst_price_targets<median_analyst_price_targets:
+        lowest_value_mean_median = mean_analyst_price_targets
+        highess_value_mean_median = median_analyst_price_targets
+    else:
+        lowest_value_mean_median = median_analyst_price_targets
+        highess_value_mean_median = mean_analyst_price_targets
+
     fig = go.Figure(
         go.Indicator(
             mode="gauge+number",
@@ -24,20 +37,24 @@ def analyst_price_recommendation(
                     {
                         "range": [
                             options_data["low_analyst_price_targets"],
-                            options_data["median_analyst_price_targets"],
+                            lowest_value_mean_median
+                            # options_data["median_analyst_price_targets"],
                         ],
                         "color": "darkorange",
                     },
                     {
                         "range": [
-                            options_data["median_analyst_price_targets"],
-                            options_data["mean_analyst_price_targets"],
+                            lowest_value_mean_median,
+                            highess_value_mean_median
+                            # options_data["median_analyst_price_targets"],
+                            # options_data["mean_analyst_price_targets"],
                         ],
                         "color": "dimgrey",
                     },
                     {
                         "range": [
-                            options_data["mean_analyst_price_targets"],
+                            highess_value_mean_median,
+                            # options_data["mean_analyst_price_targets"],
                             options_data["high_analyst_price_targets"],
                         ],
                         "color": "forestgreen",
