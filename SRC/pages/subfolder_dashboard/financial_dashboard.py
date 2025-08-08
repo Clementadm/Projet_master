@@ -1,4 +1,5 @@
 import streamlit as st
+from datetime import datetime
 from ihm.graph.analyse_price_of_the_day import price_and_volume_kpi
 import pandas as pd
 from io import StringIO
@@ -11,8 +12,6 @@ from ihm.graph.analyst_recommendation import (
     analyst_price_recommendation,
     breakdown_of_sentiment_analyst,
 )
-
-# from datetime import datetime
 from ihm.graph.historical_stock_data import (
     historic_stock_candle_stick_chart,
     get_trends_events_graph,
@@ -136,20 +135,40 @@ def financial_dashboard(
         with col_last_price[0]:
             # open
             last_open_price_know = today_analyse_price_data["Open"].values[0]
-            st.badge(f"Last open price: {last_open_price_know:.3f} $", icon=":material/check:", color="green", width="stretch")
+            st.badge(
+                f"Last open price: {last_open_price_know:.3f} $",
+                icon=":material/check:",
+                color="green",
+                width="stretch",
+            )
 
             # close
             last_close_price_know = today_analyse_price_data["Close"].values[0]
-            st.badge(f"Last close price: {last_close_price_know:.3f} $", icon=":material/close:", color="red", width="stretch")
+            st.badge(
+                f"Last close price: {last_close_price_know:.3f} $",
+                icon=":material/close:",
+                color="red",
+                width="stretch",
+            )
 
         with col_last_price[1]:
             # low
             last_low_price_know = today_analyse_price_data["Low"].values[0]
-            st.badge(f"Last low price: {last_low_price_know:.3f} $", icon=":material/arrow_downward:", color="red", width="stretch")
+            st.badge(
+                f"Last low price: {last_low_price_know:.3f} $",
+                icon=":material/arrow_downward:",
+                color="red",
+                width="stretch",
+            )
 
             # up
             last_up_price_know = today_analyse_price_data["High"].values[0]
-            st.badge(f"Last low price: {last_up_price_know:.3f} $", icon=":material/arrow_upward:", color="green", width="stretch")
+            st.badge(
+                f"Last low price: {last_up_price_know:.3f} $",
+                icon=":material/arrow_upward:",
+                color="green",
+                width="stretch",
+            )
 
         # _________________
         # tendance sur 6 mois plus que 5 ans plus approprié
@@ -167,8 +186,17 @@ def financial_dashboard(
         st.plotly_chart(candle_data, use_container_width=False, key="candle_data")
 
         # second graph
+        today_date = datetime.today()
+        filter_month = today_date.month - 3
+        filter_year = today_date.year
+        filter_data_last_3_month = five_year_historic_stock_data[
+            (five_year_historic_stock_data["Year"] == filter_year)
+            & (five_year_historic_stock_data["Month"] >= filter_month)
+        ]
+
         trend_graph = get_trends_events_graph(
-            df=five_year_historic_stock_data,
+            df=filter_data_last_3_month,
+            # df=five_year_historic_stock_data,
             cols=["Open", "High", "Low", "Close"],
             degre=3,
             show_curve=True,

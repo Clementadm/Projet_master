@@ -164,7 +164,7 @@ def get_trends_events_graph(
     if show_curve:
         fig.update_layout(
             title={
-                'text': "Overview of Market Trends and Polynomial Modeling",
+                'text': "Overview of Market Trends and Polynomial Modeling - Last 3 month",
                 'font': {'color': '#FFD700'}
             },
             xaxis_title="Date",
