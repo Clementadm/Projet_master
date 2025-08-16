@@ -1,5 +1,0 @@
-# first install requirements 
-# install java sdk 
-
-pip3 install deephaven-server
-deephaven server --jvm-args "-Xmx4g -Dauthentication.psk=BourseIhm33520"
