@@ -32,7 +32,7 @@ def company_news(json_data, type):
         )
         st.metric(
             label=".",
-            value=f"{date_min.strftime('%d %b %Y')} → {date_max.strftime('%d %b %Y')}",
+            value=f"From {date_min.strftime('%d %b %Y')} to {date_max.strftime('%d %b %Y')}",
             delta=f"{duree.days} jours",
             label_visibility="hidden",
         )

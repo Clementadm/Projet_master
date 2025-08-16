@@ -20,7 +20,7 @@ company_dict = {
 }
 
 only_company_name = list(company_dict.keys())
-choosen_company = st.selectbox("Choose an company to analyse", only_company_name)
+choosen_company = st.selectbox("Company list :", only_company_name, index=None, placeholder="Select an company to analyse",)
 
 # choosen_company_ticker = company_dict[choosen_company].upper()
 

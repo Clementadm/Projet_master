@@ -15,7 +15,7 @@ def bar_chart_options(
     right_title: str,
     right_yaxis_title: str,
     width: int = 500,
-    height: int = 150,
+    height: int = 180,
 ) -> go.Figure:
     """
         Creates a dual bar chart with two subplots showing buy/sell volumes and counts.
@@ -100,7 +100,7 @@ def bar_chart_options(
             l=40,  # 15,
             r=40,  # 15,
             b=1,  # 1,
-            t=0,  # 48,
+            t=25,  # 48,
         ),
         paper_bgcolor=background_color,
         grid={"rows": 1, "columns": 2, "pattern": "independent"},

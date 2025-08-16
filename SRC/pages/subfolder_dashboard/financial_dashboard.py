@@ -138,7 +138,7 @@ def financial_dashboard(
             st.badge(
                 f"Last open price: {last_open_price_know:.3f} $",
                 icon=":material/check:",
-                color="green",
+                color="blue",  # "green",
                 width="stretch",
             )
 
@@ -147,7 +147,7 @@ def financial_dashboard(
             st.badge(
                 f"Last close price: {last_close_price_know:.3f} $",
                 icon=":material/close:",
-                color="red",
+                color="grey",  # "red",
                 width="stretch",
             )
 
@@ -157,16 +157,16 @@ def financial_dashboard(
             st.badge(
                 f"Last low price: {last_low_price_know:.3f} $",
                 icon=":material/arrow_downward:",
-                color="red",
+                color="red",  # "orange",
                 width="stretch",
             )
 
             # up
             last_up_price_know = today_analyse_price_data["High"].values[0]
             st.badge(
-                f"Last low price: {last_up_price_know:.3f} $",
+                f"Last up price: {last_up_price_know:.3f} $",
                 icon=":material/arrow_upward:",
-                color="green",
+                color="orange",  # "green",
                 width="stretch",
             )
 
