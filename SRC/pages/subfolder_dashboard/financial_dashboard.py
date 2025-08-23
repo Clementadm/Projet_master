@@ -273,6 +273,20 @@ def financial_dashboard(
         )
 
         st.markdown(
-            "<h3 style='text-align: center; color: #8338ec;text-decoration: underline'>Prediction</h3>",
+            "<h3 style='text-align: center; color: 	#343aeb;text-decoration: underline'>Prediction</h3>",
             unsafe_allow_html=True,
         )
+
+        prediction_value = "BUY"
+        color = "#808080"
+        if prediction_value == "BUY":
+            color = "#008000"
+        elif prediction_value == "SELL":
+            color = "#FF0000"
+
+        container = st.container(border=True)
+        container.markdown(
+            f"<h1 style='text-align: center; color: {color};'>{prediction_value}</h1>",
+            unsafe_allow_html=True,
+        )
+        container.caption("This is the outcome of our machine learning prediction for the next few days")
