@@ -4,6 +4,9 @@
 /EnvProjetBourseNew
 API_KEYS.json
 /Data
+/mlruns
+/mlartifacts
+/SRC/mlruns
 
 # Ignorer les fichiers compilés Python
 __pycache__/

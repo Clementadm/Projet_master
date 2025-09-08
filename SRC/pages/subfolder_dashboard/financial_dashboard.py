@@ -17,9 +17,11 @@ from ihm.graph.historical_stock_data import (
     get_trends_events_graph,
 )
 
+from machine_learning.make_predictions import make_prediction_on_given_company
+
 
 def financial_dashboard(
-    json_data, today_analyse_price_data, streamlit_background_color
+    json_data, today_analyse_price_data, streamlit_background_color, ticker
 ):
     col = st.columns((2.5, 4, 2.5), gap="medium")  # , vertical_alignment="center")
     # _______________________________________________________________________
@@ -276,8 +278,10 @@ def financial_dashboard(
             "<h3 style='text-align: center; color: 	#343aeb;text-decoration: underline'>Prediction</h3>",
             unsafe_allow_html=True,
         )
+        prediction_value = make_prediction_on_given_company(ticker).upper()
+        print("dashboard_pred_value", prediction_value)
 
-        prediction_value = "BUY"
+        # prediction_value = "BUY"
         color = "#808080"
         if prediction_value == "BUY":
             color = "#008000"

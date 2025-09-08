@@ -26,6 +26,7 @@ choosen_company = st.selectbox("Company list :", only_company_name, index=None, 
 
 if choosen_company is not None:
     print(f"Choosen_company: {choosen_company}")
+    company_ticker = company_dict[choosen_company]
 
     # get the data from lastest json file of the company select
     latest_file = get_data_of_choosen_company(company_dict, choosen_company)
@@ -42,6 +43,7 @@ if choosen_company is not None:
             json_data=json_data,
             today_analyse_price_data=today_analyse_price_data,
             streamlit_background_color=streamlit_background_color,
+            ticker=company_ticker
         )
 
     with company_news_tab:
